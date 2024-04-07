@@ -19,12 +19,15 @@ class Cell{
 
         void setLiving(bool);
 
+        void determineNextState();
+
         void update();
 
     private:
         int _age;
         int _neighbors;
-        bool _isLiving;
+        bool _isLiving_current;
+        bool _isLiving_next;
         std::vector<int> _position;
 };
 

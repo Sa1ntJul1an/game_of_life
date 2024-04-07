@@ -4,7 +4,7 @@
 Cell::Cell (std::vector<int> position){
     _age = 0;
     _position = position;
-    _isLiving = false;
+    _isLiving_current = false;
 }
 
 void Cell::setNeighbors(int neighbors){
@@ -12,7 +12,7 @@ void Cell::setNeighbors(int neighbors){
 }
 
 bool Cell::getLivingStatus(){
-    return _isLiving;
+    return _isLiving_current;
 }
 
 int Cell::getAge(){
@@ -28,23 +28,27 @@ std::vector<int> Cell::getPosition(){
 }
 
 void Cell::setLiving(bool isLiving){
-    _isLiving = isLiving;
+    _isLiving_current = isLiving;
 }
 
-void Cell::update(){
-    if (_isLiving){                 // cell is alive
+void Cell::determineNextState(){
+    if (_isLiving_current){                 // cell is alive
         if (_neighbors < 2){
-            _isLiving = false;          // dead, underpopulation
+            _isLiving_next = false;          // dead, underpopulation
         } else if (_neighbors < 4){
-            _isLiving = true;           // alive, good population
+            _isLiving_next = true;           // alive, good population
             _age ++;
         }else {
-            _isLiving = false;          // dead, overpopulation
+            _isLiving_next = false;          // dead, overpopulation
         }
     } else {                        // cell is dead
         if (_neighbors == 3){
-            _isLiving = true;           // alive, reproduction
+            _isLiving_next = true;           // alive, reproduction
             _age = 0;
         }
     }
+}
+
+void Cell::update(){
+    _isLiving_current = _isLiving_next;
 }

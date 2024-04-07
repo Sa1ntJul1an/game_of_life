@@ -114,6 +114,14 @@ int main(){
                     }
 
                     cells[row][col].setNeighbors(living_neighbors);
+                    cells[row][col].determineNextState();
+
+                }
+            }
+
+            for (int row = 0; row < WIDTH; row ++){
+                for (int col = 0; col < HEIGHT; col ++){
+
                     cells[row][col].update();
 
                 }
